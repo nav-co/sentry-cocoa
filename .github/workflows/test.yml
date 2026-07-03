@@ -6,8 +6,6 @@ on:
       - v8.x
       - release/**
 
-  pull_request:
-    types: [opened, synchronize, reopened, labeled]
 
 # Concurrency configuration:
 # - We use workflow-specific concurrency groups to allow independent test runs across different workflows
