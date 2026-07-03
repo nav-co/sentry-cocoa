@@ -1,9 +1,5 @@
 name: UI Tests
 on:
-  push:
-    branches:
-      - main
-      - v8.x
 
   pull_request:
     types: [opened, synchronize, reopened, labeled]
