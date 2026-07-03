@@ -1,10 +1,5 @@
 name: Test
 on:
-  push:
-    branches:
-      - main
-      - v8.x
-      - release/**
 
 
 # Concurrency configuration:
