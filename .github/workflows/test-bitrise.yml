@@ -1,0 +1,35 @@
+name: Bitrise Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ruby-test:
+    name: Ruby test
+    runs-on:
+      labels: [bitrise_pool_name:Bitrise-M4Pro, machine_debug_type:enabled]
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        
+      - uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        id: cache-ruby
+        name: Cache Ruby
+        with:
+          path: |
+            ~/.rbenv/versions
+            ~/.rbenv/cache
+          key: ruby-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.ruby-version') }}
+
+      - name: Install Ruby
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          CACHE_HIT: ${{ steps.cache-ruby.outputs.cache-hit }}
+        run: |
+          # Only touch Homebrew / build Ruby when the cache missed.
+          if [ "$CACHE_HIT" != "true" ]; then
+            brew upgrade ruby-build
+            rbenv install -s
+          else
+            echo "Ruby cache hit — skipping brew upgrade ruby-build and rbenv install"
+          fi
+          bundle install
