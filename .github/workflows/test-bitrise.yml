@@ -45,3 +45,9 @@ jobs:
             *"$EXPECTED"*) echo "✓ Ruby $EXPECTED is active" ;;
             *) echo "::error::Active Ruby does not match .ruby-version ($EXPECTED)"; exit 1 ;;
           esac
+
+      - name: Setup Xcode
+        id: setup-xcode
+        uses: ./.github/actions/setup-xcode
+        with:
+          version: "16"
