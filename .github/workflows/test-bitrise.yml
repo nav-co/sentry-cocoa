@@ -33,3 +33,15 @@ jobs:
             echo "Ruby cache hit — skipping brew upgrade ruby-build and rbenv install"
           fi
           bundle install
+
+      - name: Verify Ruby version
+        run: |
+          EXPECTED="$(cat .ruby-version)"
+          echo "Expected: $EXPECTED"
+          rbenv version
+          ruby -v
+          # Fail the job if the active Ruby doesn't match .ruby-version
+          case "$(ruby -v)" in
+            *"$EXPECTED"*) echo "✓ Ruby $EXPECTED is active" ;;
+            *) echo "::error::Active Ruby does not match .ruby-version ($EXPECTED)"; exit 1 ;;
+          esac
