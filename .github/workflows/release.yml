@@ -2,10 +2,6 @@ name: Release
 run-name: Release ${{ github.event.inputs.version || github.sha }}
 
 on:
-  push:
-    branches:
-      - main
-      - v8.x
 
   pull_request:
     types: [opened, synchronize, reopened, labeled]
