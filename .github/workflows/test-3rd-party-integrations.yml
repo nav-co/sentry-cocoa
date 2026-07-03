@@ -1,10 +1,5 @@
 name: Test 3rd Party Integrations
 on:
-  push:
-    branches:
-      - main
-      - release/**
-
   pull_request:
     types: [opened, synchronize, reopened, labeled]
 
